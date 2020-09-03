@@ -1,0 +1,10 @@
+## build new image
+$ podman build -t quay.io/dmoessne/fedora-nginx:<tag> .
+
+## run new image locally and test  
+$ podman run -d  -p 8080:80 quay.io/dmoessne/fedora-nginx:<tag>
+$ curl localhost:8080
+
+## login to quay and upload
+$ login quay.io/dmoessne
+$ podman push quay.io/dmoessne/fedora-nginx:<tag>
