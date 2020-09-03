@@ -33,4 +33,7 @@ Usage: liftoff-mod.sh #-NS #-PO type
 
 ~~~
 
-
+To quick'n dirty cleanup I simply use:
+  - `oc get project |awk '/nginx-/ {print$1}'`   check for existing namespaces
+  - `oc get project |awk '/nginx-/ {print$1}' |xargs oc delete project ` to remove them. This might take some time and be careful if you have projects starting with `nginx`
+ 
