@@ -1,6 +1,6 @@
 # ocs4-tests
 
-- WIP - 20200903 - initial
+- WIP - 20201105
 
 
 This project is intended to mass deploy OCS 4 cephfs and/or block volumes that are used by nginx containers which are in turn exposed via a route and announce their pod name.
@@ -37,3 +37,8 @@ To quick'n dirty cleanup I simply use:
   - `oc get project |awk '/nginx-/ {print$1}'`   check for existing namespaces
   - `oc get project |awk '/nginx-/ {print$1}' |xargs oc delete project ` to remove them. This might take some time and be careful if you have projects starting with `nginx`
  
+
+Update 20201105
+  - changed from numbered namespaces to random id namespaces to allow concurrent runs for testing
+  - added external storage as well - still needs testing
+  - added storageless deployments for tests 
