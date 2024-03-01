@@ -13,7 +13,7 @@ clear
 echo "creating $1 NAMESPACES with $2 PODS"
 echo "****"
 for i in $(seq 1 $1); do
-  NAMESPACE_ID=$(uuidgen|cut -c -15)
+  NAMESPACE_ID=$(uuidgen)
   echo "creating project for nginx-nd-${NAMESPACE_ID}"
   oc new-project nginx-nd-${NAMESPACE_ID}
   echo "adding policy to allow priviledged"

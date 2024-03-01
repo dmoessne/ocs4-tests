@@ -1,0 +1,70 @@
+kind: Template
+apiVersion: template.openshift.io/v1
+metadata:
+  name: ocs4-test-template-nd
+objects:
+- apiVersion: v1
+  kind: ReplicationController
+  metadata:
+    labels:
+      name:  ${LABEL_NAME}
+    name:  ${LABEL_NAME}
+    selector:
+      matchLabels:
+        name:  ${LABEL_NAME}
+  spec:
+    replicas: 1
+    selector:
+      name:  ${LABEL_NAME}
+    template:
+      metadata:
+        labels:
+          name:  ${LABEL_NAME}
+      spec:
+        containers:
+        - image: quay.io/dmoessne/fedora-nginx:0.2
+          imagePullPolicy: IfNotPresent
+          name:  ${LABEL_NAME}
+          ports:
+          - containerPort: 80
+            name: PORT
+            name:  ${PORT}
+            protocol: TCP
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      description: Exposes and load balances the application pods
+    name: ${LABEL_NAME}
+  spec:
+    ports:
+    - name: ${LABEL_NAME}
+      port: 80
+      targetPort: 80
+    selector:
+      name: ${LABEL_NAME}
+- apiVersion: v1
+  kind: Route
+  metadata:
+    annotations:
+      template.openshift.io/expose-uri: http://{.spec.host}{.spec.path}
+    name: ${LABEL_NAME}
+  spec:
+    host: ${APP_DOM}
+    port:
+      targetPort: 80
+    to:
+      kind: Service
+      name: ${LABEL_NAME}
+parameters:
+- name: LABEL_NAME
+  description: random label name
+  generate: expression 
+  from: "ngx-nd-[a-z0-9]{4}-pod"  
+- name: PORT
+  description: random label name
+  generate: expression
+  from: "ngx-nd-[a-z0-9]{4}-pod"
+- name: APP_DOM
+  description: The exposed hostname that will route to the nginx service, if left blank a value will be defaulted.
+  displayName: Application Hostname

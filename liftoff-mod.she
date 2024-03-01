@@ -15,7 +15,7 @@ clear
 echo block
 echo "****"
 for i in $(seq 1 $1); do
-  NAMESPACE_ID=$(uuidgen|cut -c -15)
+  NAMESPACE_ID=$(uuidgen)
   echo "creating project for nginx-block-${NAMESPACE_ID}"
   oc new-project nginx-block-${NAMESPACE_ID}
   echo "adding policy to allow priviledged"
@@ -34,7 +34,7 @@ clear
 echo file
 echo "****"
 for i in $(seq 1 $1); do
-  NAMESPACE_ID=$(uuidgen|cut -c -15)
+  NAMESPACE_ID=$(uuidgen)
   echo "creating project for nginx-file-${NAMESPACE_ID}"
   oc new-project nginx-file-${NAMESPACE_ID}
   echo "adding policy to allow priviledged"
