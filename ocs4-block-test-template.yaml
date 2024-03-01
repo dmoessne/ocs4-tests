@@ -1,5 +1,5 @@
 kind: Template
-apiVersion: v1
+apiVersion: template.openshift.io/v1
 metadata:
   name: ocs-block-template
 objects:
@@ -78,11 +78,11 @@ parameters:
 - name: PVC
   description: random pvc number
   generate: expression
-  from: "ngx-bk-[a-z0-9]{10}-pod"
+  from: "ngx-bk-[a-z0-9]{4}-pod"
 - name: LABEL_NAME
   description: random label name
   generate: expression 
-  from: "ngx-bk-[a-z0-9]{20}-pod"  
+  from: "ngx-bk-[a-z0-9]{4}-pod"  
 - name: PORT
   description: random label name
   generate: expression
